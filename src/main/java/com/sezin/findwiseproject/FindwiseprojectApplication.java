@@ -4,6 +4,8 @@ import com.sezin.findwiseproject.controller.SearchEngineController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.List;
+
 @SpringBootApplication
 public class FindwiseprojectApplication {
 
@@ -11,7 +13,8 @@ public class FindwiseprojectApplication {
 
     public FindwiseprojectApplication(SearchEngineController searchEngineController) {
         this.searchEngineController = searchEngineController;
-        searchEngineController.init();
+        List<String> resultList = searchEngineController.init();
+        System.out.println(resultList.toString());
 
     }
     public static void main(String[] args) {

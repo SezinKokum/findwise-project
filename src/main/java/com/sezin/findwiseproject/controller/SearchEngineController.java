@@ -5,6 +5,7 @@ import com.sezin.findwiseproject.model.Document;
 import com.sezin.findwiseproject.service.SearchEngineService;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,11 +36,16 @@ public class SearchEngineController {
 
     }
 
-    public void init(){
+    public List<String> init(){
         //Creates a documentList and then creates inverted index from this documentList
         Set<Document> documentList = createDocuments();
         searchEngineService.createInvertedIndex(documentList);
         List<IndexEntry> foundDocuments = searchEngineService.search("fox");
+
+        //Creates a result list that holds document names sorted by their tfidf scores
+        List<String> resultList = searchEngineService.createResultList(foundDocuments);
+
+        return resultList;
     }
 
 }

@@ -63,11 +63,16 @@ public class SearchEngineService implements SearchEngine {
             indexEntryList.add(indexEntry);
         }
 
-        return indexEntryList;
+        return sortByTfIdf(indexEntryList);
     }
 
     //Calculates and returns idf score with the number of documents that contains the term
     public double findIdf(int numberOfRelatedDocuments) {
         return Math.log((double) this.numberOfDocuments / numberOfRelatedDocuments);
+    }
+
+    public List<IndexEntry> sortByTfIdf(List<IndexEntry> indexEntryList){
+        Collections.sort(indexEntryList, Collections.reverseOrder(((o1, o2) -> Double.compare(o1.getTfIdfScore(), o2.getTfIdfScore()))));
+        return indexEntryList;
     }
 }

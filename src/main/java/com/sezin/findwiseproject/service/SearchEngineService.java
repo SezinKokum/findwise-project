@@ -75,4 +75,13 @@ public class SearchEngineService implements SearchEngine {
         Collections.sort(indexEntryList, Collections.reverseOrder(((o1, o2) -> Double.compare(o1.getTfIdfScore(), o2.getTfIdfScore()))));
         return indexEntryList;
     }
+
+    //Creates a result list that holds document names sorted
+    public List<String> createResultList(List<IndexEntry> indexEntryList){
+        List<String> resultList = new ArrayList<>();
+        for(IndexEntry indexEntry : indexEntryList){
+            resultList.add(indexEntry.getId());
+        }
+        return resultList;
+    }
 }

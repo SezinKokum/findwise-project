@@ -14,11 +14,9 @@ public class FindwiseprojectApplication {
     public FindwiseprojectApplication(SearchEngineController searchEngineController) {
         this.searchEngineController = searchEngineController;
         List<String> resultList = searchEngineController.init();
-        System.out.println(resultList.toString());
 
     }
     public static void main(String[] args) {
         SpringApplication.run(FindwiseprojectApplication.class, args);
     }
-
 }

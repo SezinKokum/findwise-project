@@ -9,13 +9,9 @@ public class Document {
     private String text;
     private List<String> wordList;
 
-    public Document(String id, String text) {
+    public Document(String id, String text, List<String> wordList) {
         this.id = id;
         this.text = text;
-    }
-
-    public Document(String id, List<String> wordList) {
-        this.id = id;
         this.wordList = wordList;
     }
 

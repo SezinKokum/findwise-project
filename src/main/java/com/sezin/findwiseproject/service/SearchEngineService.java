@@ -18,7 +18,7 @@ public class SearchEngineService implements SearchEngine {
     @Override
     public Document indexDocument(String id, String content) {
         List<String> wordList = splitContent(content);
-        Document document = new Document(id, wordList);
+        Document document = new Document(id, content, wordList);
         return document;
     }
 

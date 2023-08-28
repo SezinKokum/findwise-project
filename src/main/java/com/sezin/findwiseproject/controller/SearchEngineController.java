@@ -23,7 +23,61 @@ public class SearchEngineController {
 
     public Set<Document> createDocuments(){
 
-        /*Scanner scanner = new Scanner(System.in);
+        String document1 = "the brown fox jumped over the brown dog";
+        String document2 = "the lazy brown dog sat in the corner";
+        String document3 = "the red fox bit the lazy dog";
+
+        //Creates a documentList set with documents that are given by user
+        Set<Document> documentList = new HashSet<>();
+
+        //Calls indexDocument method in order to split and parse documents into a wordList list and stores this list into a document objects
+        documentList.add(searchEngineService.indexDocument("document 1", document1));
+        documentList.add(searchEngineService.indexDocument("document 2", document2));
+        documentList.add(searchEngineService.indexDocument("document 3", document3));
+
+        return documentList;
+
+    }
+
+    public void init(){
+        //Creates a documentList and then creates inverted index from this documentList
+        Set<Document> documentList = createDocuments();
+
+        //Uncomment this line to read files from path
+        //Set<Document> documentList = createDocumentsWithPath();
+
+        searchEngineService.createInvertedIndex(documentList);
+
+        takeTermFromUser();
+
+    }
+
+    private void takeTermFromUser() {
+
+        List<String> resultList = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        while(true) {
+            System.out.print("Enter a search query (or 'q' to exit): ");
+            String query = scanner.nextLine();
+            if (query.equalsIgnoreCase("q")) {
+                System.out.println("SearchEngine ended!.");
+                scanner.close();
+                break;
+            }
+            List<IndexEntry> foundDocuments = searchEngineService.search(query);
+
+            //Creates a result list that holds document names sorted by their tfidf scores
+            resultList = searchEngineService.createResultList(foundDocuments);
+            if(resultList.isEmpty()) {
+                System.out.println("No results found.");
+            }else{
+                System.out.println(resultList.toString());
+            }
+        }
+    }
+
+    public Set<Document> createDocumentsWithPath(){
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a filepath:");
         String filePath = scanner.nextLine();
 
@@ -54,55 +108,7 @@ public class SearchEngineController {
         }
         catch(IOException exception) {
             System.out.println("IOException "+exception);
-        }*/
-
-        String document1 = "the brown fox jumped over the brown dog";
-        String document2 = "the lazy brown dog sat in the corner";
-        String document3 = "the red fox bit the lazy dog";
-
-        //Creates a documentList set with documents that are given by user
-        Set<Document> documentList = new HashSet<>();
-
-        //Calls indexDocument method in order to split and parse documents into a wordList list and stores this list into a document objects
-        documentList.add(searchEngineService.indexDocument("document 1", document1));
-        documentList.add(searchEngineService.indexDocument("document 2", document2));
-        documentList.add(searchEngineService.indexDocument("document 3", document3));
-
-        return documentList;
-
-    }
-
-    public List<String> init(){
-        //Creates a documentList and then creates inverted index from this documentList
-        Set<Document> documentList = createDocuments();
-        searchEngineService.createInvertedIndex(documentList);
-
-        List<String> resultList = takeTermFromUser();
-        return resultList;
-    }
-
-    private List<String> takeTermFromUser() {
-
-        List<String> resultList = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
-        while(true) {
-            System.out.print("Enter a search query (or 'q' to exit): ");
-            String query = scanner.nextLine();
-            if (query.equalsIgnoreCase("q")) {
-                System.out.println("SearchEngine ended!.");
-                scanner.close();
-                break;
-            }
-            List<IndexEntry> foundDocuments = searchEngineService.search(query);
-
-            //Creates a result list that holds document names sorted by their tfidf scores
-            resultList = searchEngineService.createResultList(foundDocuments);
-            if(resultList.isEmpty()) {
-                System.out.println("No results found.");
-            }else{
-                System.out.println(resultList.toString());
-            }
         }
-        return resultList;
+        return documentList;
     }
 }

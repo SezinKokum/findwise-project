@@ -13,7 +13,7 @@ public class FindwiseprojectApplication {
 
     public FindwiseprojectApplication(SearchEngineController searchEngineController) {
         this.searchEngineController = searchEngineController;
-        List<String> resultList = searchEngineController.init();
+        searchEngineController.init();
 
     }
     public static void main(String[] args) {
